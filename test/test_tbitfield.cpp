@@ -239,16 +239,16 @@ TEST(TBitField, can_invert_bitfield)
 
 TEST(TBitField, can_invert_large_bitfield)
 {
-  const int size = 38;
-  TBitField bf(size), negBf(size), expNegBf(size);
-  bf.SetBit(35);
-  negBf = ~bf;
+	const int size = 38;
+	TBitField bf(size), negBf(size), expNegBf(size);
+	bf.SetBit(35);
+	negBf = ~bf;
 
   for(int i = 0; i < size; i++)
-  expNegBf.SetBit(i);
-  expNegBf.ClrBit(35);
+		expNegBf.SetBit(i);
+    expNegBf.ClrBit(35);
 
-  EXPECT_EQ(expNegBf, negBf);
+	EXPECT_EQ(expNegBf, negBf);
 }
 
 TEST(TBitField, invert_plus_and_operator_on_different_size_bitfield)
