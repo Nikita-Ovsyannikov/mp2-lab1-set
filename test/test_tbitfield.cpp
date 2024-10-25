@@ -27,14 +27,34 @@ TEST(TBitField, new_bitfield_is_set_to_zero)
   EXPECT_EQ(0, sum);
 }
 
-TEST(TBitField, can_set_bit)
-{
-  TBitField bf(10);
+//TEST(TBitField, can_set_bit)
+//{
+//  TBitField bf(10);
+//
+//  EXPECT_EQ(0, bf.GetBit(3));
+//
+//  bf.SetBit(3);
+//  EXPECT_NE(0, bf.GetBit(3));
+//}
 
-  EXPECT_EQ(0, bf.GetBit(3));
+TEST(TBitField, full_test_set_bit) {
+    int size = 70;
+    TBitField bf(size);
 
-  bf.SetBit(3);
-  EXPECT_NE(0, bf.GetBit(3));
+    for (int i = 0; i < size; i++) {
+        EXPECT_EQ(0, bf.GetBit(i));
+    }
+
+    int bitN = 69;
+    bf.SetBit(bitN);
+    cout << bf << endl;
+    for (int i = 0; i < bitN; i++) {
+        EXPECT_EQ(0, bf.GetBit(i));
+    }
+    for (int i = bitN + 1; i < size; i++) {
+        EXPECT_EQ(0, bf.GetBit(i));
+    }
+    EXPECT_EQ(1, bf.GetBit(bitN));
 }
 
 TEST(TBitField, can_clear_bit)
@@ -340,4 +360,28 @@ TEST(TBitField, bitfields_com_is_eqel)
     b1 = bf1 | bf2;
     b2 = bf2 | bf1;
     EXPECT_EQ(b1, b2);
+}
+
+TEST(TBitField, test_for_Nikita_number_100500)
+{
+    TBitField bf(70);
+
+    bf.SetBit(0);
+    EXPECT_EQ(0, bf.GetBit(32));
+    cout << bf << endl;
+}
+
+TEST(TBitField, can_do_AND_correctly) {
+    const int size1 = 70, size2 = 35;
+    TBitField bf1(size1), bf2(size2), bf3(size1);
+    for (int i = 0; i < size1; i += 2)
+        bf1.SetBit(i);
+    for (int i = 1; i < size2; i += 2)
+        bf2.SetBit(i);
+
+    TBitField res1 = bf1 & bf2;
+    TBitField res2 = bf2 & bf1;
+
+    EXPECT_EQ(bf3, res1);
+    EXPECT_EQ(bf3, res2);
 }
